@@ -1,0 +1,3 @@
+# Run `make freeze-requirements` to update requirements.txt with package version changes made in
+# `requirements-app.txt`.
+
