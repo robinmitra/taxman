@@ -19,11 +19,11 @@ class IncomeTax:
         basic_rate_end, higher_rate_end = 46350, 150000
         tax_free = pa if income > pa else income
         basic_rate, higher_rate, additional_rate = 0, 0, 0
-        if (income > pa):
+        if income > pa:
             basic_rate = basic_rate_end - pa
-            if (income > higher_rate_end):
+            if income > higher_rate_end:
                 higher_rate = higher_rate_end - basic_rate_end
                 additional_rate = income - higher_rate_end
-            elif (income > basic_rate_end):
+            elif income > basic_rate_end:
                 higher_rate = income - basic_rate_end
         return tax_free, basic_rate, higher_rate, additional_rate

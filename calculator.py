@@ -1,6 +1,7 @@
 from allowance.personal_allowance import PersonalAllowance
 from income.employment import Employment
 from tax.income_tax import IncomeTax
+from national_insurance.employees import Employees
 
 
 class Calculator:
@@ -11,12 +12,14 @@ class Calculator:
 
     def calculate(self):
         tax_amount = IncomeTax(self._incomes, self._allowances).calculate()
-        return tax_amount
+        employees_ni = Employees(self._incomes).get_contribution()
+        return tax_amount, employees_ni
 
 
 allowance = PersonalAllowance(11850)
 employment = Employment(65000)
 
 calculator = Calculator([employment], [allowance])
-tax = calculator.calculate()
+tax, ni = calculator.calculate()
 print('Tax: {}'.format(tax))
+print('Employees NI: {}'.format(ni))
