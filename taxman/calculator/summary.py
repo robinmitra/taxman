@@ -1,5 +1,6 @@
 class Summary:
-    def __init__(self, total_income, net_income, income_tax, employees_ni, employers_ni):
+    def __init__(self, total_income, net_income, income_tax, employees_ni,
+                 employers_ni):
         self._total_income = total_income
         self._net_income = net_income
         self._income_tax = income_tax

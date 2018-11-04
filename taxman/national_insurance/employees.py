@@ -24,5 +24,6 @@ class Employees:
         return contribution
 
     def _get_salary(self):
-        employment = next(income for income in self._incomes if type(income) is Employment)
+        employment = next(
+            income for income in self._incomes if type(income) is Employment)
         return employment.get_salary('monthly')
