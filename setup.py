@@ -14,7 +14,7 @@ setup(
     # Metadata
     author='Robin Mitra',
     description='A set of tools for computing Income Tax and National '
-                'Insurance contributions for the UK.',
+                'Insurance contributions for the UK tax system.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/robinmitra/taxman',
