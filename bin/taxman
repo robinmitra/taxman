@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import sys
+
+sys.path.append(os.path.abspath('..'))
+
+from taxman.allowance.personal_allowance import PersonalAllowance
+from taxman.calculator.calculator import Calculator
+from taxman.income.employment import Employment
+
+
+# params = {
+#     'personal_allowance': 11850,
+#     'employment_income': 65000,
+# }
+
+def main(params):
+    allowance = PersonalAllowance(params['personal_allowance'])
+    employment = Employment(params['employment_income'])
+    calculator = Calculator([employment], [allowance])
+    return calculator.calculate()
+
+
+def get_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--employment-income', help='Annual income from employment', required=True, type=int)
+    parser.add_argument('--personal-allowance', help='Annual personal allowance', required=True, type=int)
+    parser.add_argument('--input-period', help='Period for the input (i.e. weekly, monthly or yearly')
+    parser.add_argument('--output-period', help='Period for the output (i.e. weekly, monthly or yearly')
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    print('Calculating tax')
+    args = get_args()
+    params = {}
+    if args.personal_allowance:
+        params['personal_allowance'] = args.personal_allowance
+    if args.employment_income:
+        params['employment_income'] = args.employment_income
+    summary = main(params)
+    print('Total income: {}'.format(summary.total_income))
+    print('Income tax: {}'.format(summary.income_tax))
+    print('Employee\'s NI: {}'.format(summary.employees_ni))
+    print('Net income: {}'.format(summary.net_income))

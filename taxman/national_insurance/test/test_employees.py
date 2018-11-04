@@ -1,5 +1,5 @@
-from national_insurance.employees import Employees
-from income.employment import Employment
+from taxman.national_insurance import Employees
+from taxman.income import Employment
 
 
 def test_calculate_employees_ni():

@@ -1,4 +1,4 @@
-from income.employment import Employment
+from taxman.income.employment import Employment
 
 
 class Employees:

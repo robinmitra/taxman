@@ -1,5 +1,5 @@
-from allowance.personal_allowance import PersonalAllowance
-from income.employment import Employment
+from taxman.allowance.personal_allowance import PersonalAllowance
+from taxman.income.employment import Employment
 
 
 class IncomeTax:
