@@ -13,7 +13,7 @@ class IncomeTax:
         tax_free, basic_rate, higher_rate, additional_rate = self.get_bands(
             employment_income.get_salary())
         tax = (basic_rate * 0.2) + (higher_rate * 0.4) + (
-                    additional_rate * 0.45)
+            additional_rate * 0.45)
         return tax
 
     def get_bands(self, income):
