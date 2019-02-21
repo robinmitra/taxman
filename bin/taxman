@@ -6,6 +6,7 @@ import sys
 
 sys.path.append(os.path.abspath('..'))
 
+from taxman import __version__
 from taxman.allowance.personal_allowance import PersonalAllowance
 from taxman.calculator.calculator import Calculator
 from taxman.income.employment import Employment
@@ -23,18 +24,7 @@ def main(params):
     return calculator.calculate()
 
 
-def get_args():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--employment-income', help='Annual income from employment', required=True, type=int)
-    parser.add_argument('--personal-allowance', help='Annual personal allowance', required=True, type=int)
-    parser.add_argument('--input-period', help='Period for the input (i.e. weekly, monthly or yearly')
-    parser.add_argument('--output-period', help='Period for the output (i.e. weekly, monthly or yearly')
-    return parser.parse_args()
-
-
-if __name__ == '__main__':
-    print('Calculating tax')
-    args = get_args()
+def calculate(args):
     params = {}
     if args.personal_allowance:
         params['personal_allowance'] = args.personal_allowance
@@ -45,3 +35,56 @@ if __name__ == '__main__':
     print('Income tax: {}'.format(summary.income_tax))
     print('Employee\'s NI: {}'.format(summary.employees_ni))
     print('Net income: {}'.format(summary.net_income))
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version='%(prog)s ' + __version__
+    )
+    subparsers = parser.add_subparsers(
+        title='Available commands',
+        required=False,
+    )
+    calculate_parser = subparsers.add_parser(
+        'calculate',
+        help='Calculate Income Tax and National Insurance contributions'
+    )
+    calculate_parser.add_argument(
+        '--employment-income',
+        help='Annual income from employment',
+        required=True,
+        type=int
+    )
+    calculate_parser.add_argument(
+        '--personal-allowance',
+        help='Annual personal allowance',
+        required=True,
+        type=int
+    )
+    calculate_parser.add_argument(
+        '--input-period',
+        help='Period for the input (i.e. weekly, monthly or yearly)'
+    )
+    calculate_parser.add_argument(
+        '--output-period',
+        help='Period for the output (i.e. weekly, monthly or yearly)'
+    )
+    calculate_parser.set_defaults(func=calculate)
+    return parser
+
+
+def parse_args():
+    parser = get_parser()
+    parsed_args = parser.parse_args()
+    if hasattr(parsed_args, 'func'):
+        parsed_args.func(parsed_args)
+    else:
+        parser.print_help()
+
+
+if __name__ == '__main__':
+    parse_args()
