@@ -1,24 +1,26 @@
 from distutils.core import setup
 
+from taxman import __author__, __description__, __license__, __name__, \
+    __version__
+
 with open('README.md') as f:
     long_description = f.read()
 
 setup(
-    name='taxman',
-    version='0.2.0',
+    name=__name__,
+    version=__version__,
     packages=['taxman', 'taxman.allowance', 'taxman.calculator',
               'taxman.income', 'taxman.national_insurance', 'taxman.person',
               'taxman.tax'],
     scripts=['bin/taxman'],
 
     # Metadata
-    author='Robin Mitra',
-    description='A set of tools for computing Income Tax and National '
-                'Insurance contributions for the UK tax system.',
+    author=__author__,
+    description=__description__,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/robinmitra/taxman',
-    license='MIT',
+    license=__license__,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

@@ -70,5 +70,5 @@ Run the following to print Income Tax and National Insurance contributions,
 along with the net income, for a given salary and personal allowance: 
 
 ```bash
-taxman --employment-income 85000 --personal-allowance 11850
+taxman calculate --employment-income 85000 --personal-allowance 11850
 ```
